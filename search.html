@@ -3,7 +3,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>EventsParis - Accueil</title>
+        <title>EventsParis - Recherche</title>
         <!-- déclaration du style css -->
         <link rel="stylesheet" href="css/style.css">
         <!-- déclaration des polices d'écriture -->
@@ -11,22 +11,31 @@
     </head>
     <body>
         <header>
+            <h1>EventsParis</h1>
             <nav>
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="search.html">Liste des évenements</a></li>
                 <li><a href="favorites.html">Favoris</a></li>
             </nav>
-            
         </header>
         <main>
             <section>
-                <h1>Bienvenue sur Paris Events</h1>
-                <p>L'application qui permet de rechercher en direct les événements parisiens</p>
-                <h2>Actualité</h2>
-                <p>Le dernier événement publié : </p>
+                <h1>Lister de futurs événements à Paris</h1>
+                <form>
+                    <p>
+                        <label for="name">Nom de l'événement : </label>
+                        <input type="text" id="name" name="name" />
+                    </p>
+                    <p>
+                        <input value="Rechercher" id="submit" readonly="readonly"/>
+                    </p>
+                </form>
             </section>
             <section>
-
+                <h2>Résultats de la recherche</h2>
+                <div>
+                    Aucun résultat pour cette recherche...
+                </div>
             </section>
         </main>
         <footer>
@@ -35,7 +44,7 @@
 
         <!-- import du script de jquery et du script personnalisé -->
         <script src="script/jquery.min.js"></script>
-        <script src="script/index.js"></script>
+        <script src="script/search.js"></script>
 
     </body>
 </html>
