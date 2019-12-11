@@ -83,3 +83,41 @@ form {
     width: 50%;
     height: 40px;
 }
+
+.event {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background-color: burlywood;
+    width: 20%;
+}
+
+.event-image {
+    width: 100%;
+    height: auto;
+}
+
+.event-name {
+    color: blueviolet;
+}
+
+.event-short-description {
+    font-style: italic;
+}
+
+.heart {
+    width: 10%;
+    cursor: pointer;
+}
+
+.unselected {
+    color: red;
+    border: 1px red solid;
+    background-color: white;
+}
+
+.selected {
+    color: white;
+    background-color: red;
+    border: 1px red solid;
+}
