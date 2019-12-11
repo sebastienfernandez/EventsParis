@@ -31,7 +31,7 @@ $(function() {
                 events.data.map(m => '<p>' + m + '</p>');
             console.log('lol');*/
 
-            console.log(events.records[0].record.fields);
+            
             console.log(events.records)
             document.querySelector('#results').innerHTML = 
             events.records.map(m => '<div class="event">' + 
@@ -41,6 +41,11 @@ $(function() {
                 '<p class="event-short-description">' + m.record.fields.lead_text + '</p>' + 
                 '<button class="heart unselected">&#10084;</button>' +
             '</div>')
+
+            if(events.records.length === 0) {
+                document.querySelector('#results').innerHTML =
+                '<p class="off-results">Aucun résultat pour cette recherche...</p>'
+            }
             
         })
 
