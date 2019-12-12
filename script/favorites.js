@@ -44,7 +44,7 @@ $(function() {
                 '<p class="event-date-start">' + convertDateToString(track.record.fields.date_start) + '</p>' +
                 '<p class="event-short-description">' + track.record.fields.lead_text + '</p>'  +
                 '<button data-id="'+track.record.id+'" class="heart selected">&#10084;</button>' +
-            '</div>'
+            '</div><br>'
             );
             
         //  suppression de l'événement

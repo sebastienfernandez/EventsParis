@@ -46,7 +46,7 @@ $(function() {
                 '<p class="event-date-start">' + convertDateToString(event.record.fields.date_start) + '</p>' +
                 '<p class="event-short-description">' + event.record.fields.lead_text + '</p>'  +
                 selectedButton(favorites.find(f => event.record.id === f), event) +
-            '</div>')
+            '</div>').join('<br>');
 
             if(events.records.length === 0) {
                 document.querySelector('#results').innerHTML =
