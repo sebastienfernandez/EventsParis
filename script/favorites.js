@@ -1,6 +1,10 @@
 $(function() {
 
+    // définition de la variable contenant tous les favoris
+
     const favs = JSON.parse(localStorage.getItem('favs'));
+
+    // fonction de conversion de la date pour affichage
 
     function convertDateToString(string) {
         let date = new Date(string);
@@ -18,11 +22,14 @@ $(function() {
         
     }
 
+    // si la variable est vide
 
     if (favs.length === 0) {
         document.querySelector('#favorites-selection').innerHTML =
                     '<p class="p-results">Aucun favori dans votre liste...</p>'
     };
+
+    // boucle affichant tous les favoris
 
     favs.forEach(fav => {
         console.log(fav);
@@ -40,6 +47,7 @@ $(function() {
             '</div>'
             );
             
+        //  suppression de l'événement
 
         $('#favorites-selection').on('click', '.selected', function() {
             const favs = JSON.parse(localStorage.getItem('favs')) || [];
@@ -56,6 +64,8 @@ $(function() {
         })
 
     })
+
+    // supression de tous les événements
 
     $("#clear-button").on('click',function() {
         if (confirm("Voulez vous vraiment supprimer tous vos favoris ?")) {

@@ -26,6 +26,8 @@ function storageAvailable(type) {
     }
 }
 
+// fonction de conversion de la date pour affichage
+
 function convertDateToString(string) {
     let date = new Date(string);
     let nbDay = date.getDate();
@@ -43,7 +45,7 @@ function convertDateToString(string) {
 }
 
 
-// si le licalStorage marche
+// si le localStorage marche
 
 if (storageAvailable('localStorage')) {
 
@@ -59,10 +61,14 @@ if (storageAvailable('localStorage')) {
     
     if (JSON.parse(localStorage.favs).length !== 0) {
 
+        // requête du dernier événement d'après le dernier identifiant du localstorage
+
         $.ajax({
             url: 'https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/' + favoriteLast,
             dataType: 'jsonp'
         }).done(function(last) {
+
+            //affichage de cet événement
 
             $('#last-event').append(
                 '<div class="event">' +
@@ -76,12 +82,19 @@ if (storageAvailable('localStorage')) {
 
         })
 
+        //si aucun favori
+
     } else {
         document.querySelector('#last-event').innerHTML =
         '<p>Absence de favori dans cette session...</p>'
     }
 
+    //  suppression de l'événement
+
     $('#last-event').on('click', '.selected', function() {
+
+        //suppression de l'événement de l'écran et du localstorage
+
         const favs = JSON.parse(localStorage.getItem('favs')) || [];
         const newFavs = favs.filter(f => f !== $(this).data("id"));
         localStorage.setItem('favs', JSON.stringify(newFavs));
@@ -89,6 +102,8 @@ if (storageAvailable('localStorage')) {
         elementToDisplay.css('display', 'none');
 
         let favoriteLast = JSON.parse(localStorage.favs)[JSON.parse(localStorage.favs).length - 1];
+
+        //si il reste d'autres favoris
 
         if (JSON.parse(localStorage.favs).length !== 0) {
 
@@ -115,6 +130,8 @@ if (storageAvailable('localStorage')) {
         }
         
     })
+
+    //signalement d'un problème avec le localstorage
 
 } else {
     alert("L'application EventParis nécessite la disponiblité du localStorage API");
