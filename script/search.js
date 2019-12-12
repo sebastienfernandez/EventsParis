@@ -8,7 +8,12 @@ $(function() {
         let year = date.getFullYear();
         let hour = date.getHours();
         let minutes = date.getMinutes();
-        return 'Le ' + nbDay + ' ' + monthNames[monthIndex] + ' ' + year + ' à ' + hour + ':' + minutes;
+        if (minutes !== 0) {
+            return 'Le ' + nbDay + ' ' + monthNames[monthIndex] + ' ' + year + ' à ' + hour + 'h' + minutes;
+        } else {
+            return 'Le ' + nbDay + ' ' + monthNames[monthIndex] + ' ' + year + ' à ' + hour + 'h';
+        }
+        
     }
 
 
@@ -25,21 +30,16 @@ $(function() {
             dataType: 'jsonp'
         }).done(function(events) {
 
-            //const favorites = JSON.parse(localStorage.getItem('favs')) || [];
+            const favorites = JSON.parse(localStorage.getItem('favs')) || [];
 
-            /*document.querySelector('#results').innerHTML =
-                events.data.map(m => '<p>' + m + '</p>');
-            console.log('lol');*/
-
-            
             console.log(events.records)
             document.querySelector('#results').innerHTML = 
-            events.records.map(m => '<div class="event">' + 
-                '<img class="event-image" alt="événement paris" title=' + m.record.fields.title + ' src=' + m.record.fields.cover.url + '/>' + 
-                '<h3 class="event-name">' + m.record.fields.title + '</h3>' +
-                '<p class="event-date-start">' + convertDateToString(m.record.fields.date_start) + '</p>' +
-                '<p class="event-short-description">' + m.record.fields.lead_text + '</p>' + 
-                '<button class="heart unselected">&#10084;</button>' +
+            events.records.map(event => '<div class="event">' + 
+                '<img class="event-image" alt="événement paris" title=' + event.record.fields.title + ' src=' + event.record.fields.cover.url + '/>' + 
+                '<h3 class="event-name">' + event.record.fields.title + '</h3>' +
+                '<p class="event-date-start">' + convertDateToString(event.record.fields.date_start) + '</p>' +
+                '<p class="event-short-description">' + event.record.fields.lead_text + '</p>'  +
+                selectedButton(favorites.find(f => event.record.id === f), event) +
             '</div>')
 
             if(events.records.length === 0) {
@@ -54,3 +54,29 @@ $(function() {
     });
 
 });
+
+function selectedButton (selected, track) {
+    return selected ? '<button data-id="'+track.record.id+'" class="heart selected">&#10084;</button>' : '<button data-id="'+track.record.id+'" class="heart unselected">&#10084;</button>'
+}
+
+$('#results').on('click', '.unselected', function() {
+    const favs = JSON.parse(localStorage.getItem('favs')) || [];
+    favs.push($(this).data('id'));
+
+    localStorage.setItem('favs', JSON.stringify(favs));
+
+    $(this).removeClass('unselected');
+    $(this).addClass('selected');
+    console.log(localStorage)
+});
+
+$('#results').on('click', '.selected', function() {
+    const favs = JSON.parse(localStorage.getItem('favs')) || [];
+    const newFavs = favs.filter(f => f !== $(this).data("id"));
+    localStorage.setItem('favs', JSON.stringify(newFavs));
+
+    $(this).removeClass('selected');
+    $(this).addClass('unselected');
+    console.log(localStorage)
+
+})
