@@ -61,10 +61,51 @@ $(function() {
 
 });
 
+//afficher les détails de l'événement
+
+$('#results').on('click', '.event', function() {
+    let eventId = $(this).data('id');
+    console.log(eventId);
+    const favorites = JSON.parse(localStorage.getItem('favs')) || [];
+    $.ajax({
+        url: 'https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/' + eventId,
+        dataType: 'jsonp'
+    }).done(function(choosen) {
+        console.log(choosen);
+        document.querySelector('main').innerHTML = 
+         '<div class="choosen-event">'  + 
+            '<h1>' + choosen.record.fields.title + '</h1>' +
+            '<div class="choosen-event-main">' +
+            '<section>' +
+                '<img src=' + choosen.record.fields.cover.url + '/>' +
+                '<p>' + choosen.record.fields.lead_text + '</p>' +
+                '<p>' + choosen.record.fields.description + '</p>' +
+            '</section>' +
+            '<aside>' +
+                selectedButton(favorites.find(f => choosen.record.id === f), choosen) +
+                '<h3>Dates :</h3>' +
+                '<p>' + choosen.record.fields.date_description + '</p>' +
+                '<h3>Prix : </h3>' +
+                '<p>' + choosen.record.fields.price_detail + '</p>' +
+                '<h3>Localisation : </h3>' +
+                '<div>' + '<p>carte</p>' + '</div>' +
+                '<p>' + choosen.record.fields.contact_name + '<br>' + choosen.record.fields.address_street + '</p>' +
+                '<h3>En transports</h3>' +
+                '<p>' + choosen.record.fields.transport + '</p>' +
+                "<h3>Plus d'infos</h3>" +
+                '<p>' + choosen.record.fields.contact_phone + '</p>' +
+                '<a href=' + choosen.record.fields.contact_mail + '>' + choosen.record.fields.contact_mail + '</a><br>' + 
+                '<a href=' + choosen.record.fields.contact_facebook + '>' + choosen.record.fields.contact_facebook + '</a>' +
+            '</aside>' +
+            '</div>' +
+         '</div>'
+    })
+})
+
 // configuration des boutons
 
-function selectedButton (selected, track) {
-    return selected ? '<button data-id="'+track.record.id+'" class="heart selected">&#10084;</button>' : '<button data-id="'+track.record.id+'" class="heart unselected">&#10084;</button>'
+function selectedButton (selected, event) {
+    return selected ? '<button data-id="'+ event.record.id +'" class="heart selected">&#10084;</button>' : '<button data-id="'+ event.record.id +'" class="heart unselected">&#10084;</button>'
 }
 
 // le bouton indique un événement non sélectionné
@@ -99,16 +140,3 @@ $('#results').on('click', '.selected', function() {
 
 })
 
-//remonter l'id de l'événement lors du clic
-
-$('#results').on('click', '.event', function() {
-    let eventId = $(this).data('id');
-    console.log(eventId);
-    $.ajax({
-        url: 'https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/' + eventId,
-        dataType: 'jsonp'
-    }).done(function(choosen) {
-        document.querySelector('main').innerHTML = 
-         '<h1>' + choosen.record.fields.title + '</h1>'
-    })
-})
