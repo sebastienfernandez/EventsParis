@@ -173,7 +173,51 @@ form {
 
 /*********     CHOOSEN EVENT            ****************/
 
+.choosen-event {
+    display: flex;
+    flex-direction: column;
+}
+
+.choosen-event-main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.choosen-event-main section {
+    width: 60%;
+}
+
+.choosen-event-main aside {
+    padding: 2%;
+    width: 30%;
+    border: 1px #b6b6af solid;
+    border-radius: 10px;
+    background-color: #dad6ce;
+}
+
+.large-image {
+    width: 100%;
+    height: auto;
+}
+
 /********  MEDIA QUERIES      **************/
+
+@media screen and (max-width: 1300px) {
+
+    .choosen-event-main {
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .choosen-event-main section {
+        width: 100%;
+    }
+    
+    .choosen-event-main aside {
+        width: 100%;
+    }
+}
 
 @media screen and (max-width: 1200px) {
 

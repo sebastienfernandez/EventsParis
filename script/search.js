@@ -77,7 +77,7 @@ $('#results').on('click', '.event', function() {
             '<h1>' + choosen.record.fields.title + '</h1>' +
             '<div class="choosen-event-main">' +
             '<section>' +
-                '<img src=' + choosen.record.fields.cover.url + '/>' +
+                '<img class="large-image" src=' + choosen.record.fields.cover.url + '/>' +
                 '<p>' + choosen.record.fields.lead_text + '</p>' +
                 '<p>' + choosen.record.fields.description + '</p>' +
             '</section>' +
@@ -88,7 +88,6 @@ $('#results').on('click', '.event', function() {
                 '<h3>Prix : </h3>' +
                 '<p>' + choosen.record.fields.price_detail + '</p>' +
                 '<h3>Localisation : </h3>' +
-                '<div>' + '<p>carte</p>' + '</div>' +
                 '<p>' + choosen.record.fields.contact_name + '<br>' + choosen.record.fields.address_street + '</p>' +
                 '<h3>En transports</h3>' +
                 '<p>' + choosen.record.fields.transport + '</p>' +
