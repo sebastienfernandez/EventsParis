@@ -40,7 +40,7 @@ $(function() {
             // affichage de ces événements
 
             document.querySelector('#results').innerHTML = 
-            events.records.map(event => '<div class="event">' + 
+            events.records.map(event => '<div class="event" data-id=' + event.record.id + '>' + 
                 '<img class="event-image" alt="événement paris" title=' + event.record.fields.title + ' src=' + event.record.fields.cover.url + '/>' + 
                 '<h3 class="event-name">' + event.record.fields.title + '</h3>' +
                 '<p class="event-date-start">' + convertDateToString(event.record.fields.date_start) + '</p>' +
@@ -97,4 +97,18 @@ $('#results').on('click', '.selected', function() {
 
     $(this).addClass('unselected');
 
+})
+
+//remonter l'id de l'événement lors du clic
+
+$('#results').on('click', '.event', function() {
+    let eventId = $(this).data('id');
+    console.log(eventId);
+    $.ajax({
+        url: 'https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/' + eventId,
+        dataType: 'jsonp'
+    }).done(function(choosen) {
+        document.querySelector('main').innerHTML = 
+         '<h1>' + choosen.record.fields.title + '</h1>'
+    })
 })

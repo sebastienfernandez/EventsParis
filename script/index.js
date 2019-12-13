@@ -71,7 +71,7 @@ if (storageAvailable('localStorage')) {
             //affichage de cet événement
 
             $('#last-event').append(
-                '<div class="event">' +
+                '<div class="event" data-id=' + last.record.id + '>' +
                     '<img class="event-image" alt="événement paris" title=' + last.record.fields.title + ' src=' + last.record.fields.cover.url + '/>' +
                     '<h3 class="event-name">' + last.record.fields.title + '</h3>' +
                     '<p class="event-date-start">' + convertDateToString(last.record.fields.date_start) + '</p>' +
@@ -113,7 +113,7 @@ if (storageAvailable('localStorage')) {
             }).done(function(last) {
     
                 $('#last-event').append(
-                    '<div class="event">' +
+                    '<div class="event" data-id=' + last.record.id + '>' +
                         '<img class="event-image" alt="événement paris" title=' + last.record.fields.title + ' src=' + last.record.fields.cover.url + '/>' +
                         '<h3 class="event-name">' + last.record.fields.title + '</h3>' +
                         '<p class="event-date-start">' + convertDateToString(last.record.fields.date_start) + '</p>' +

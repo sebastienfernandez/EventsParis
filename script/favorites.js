@@ -36,14 +36,14 @@ $(function() {
         $.ajax({
             url: 'https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/' + fav,
             dataType: 'jsonp'
-        }).done(function(track) {
+        }).done(function(event) {
             $('#favorites-selection').append(
-                '<div class="event">' + 
-                '<img class="event-image" alt="événement paris" title=' + track.record.fields.title + ' src=' + track.record.fields.cover.url + '/>' + 
-                '<h3 class="event-name">' + track.record.fields.title + '</h3>' +
-                '<p class="event-date-start">' + convertDateToString(track.record.fields.date_start) + '</p>' +
-                '<p class="event-short-description">' + track.record.fields.lead_text + '</p>'  +
-                '<button data-id="'+track.record.id+'" class="heart selected">&#10084;</button>' +
+                '<div class="event" data-id='  + event.record.id +  '>' + 
+                '<img class="event-image" alt="événement paris" title=' + event.record.fields.title + ' src=' + event.record.fields.cover.url + '/>' + 
+                '<h3 class="event-name">' + event.record.fields.title + '</h3>' +
+                '<p class="event-date-start">' + convertDateToString(event.record.fields.date_start) + '</p>' +
+                '<p class="event-short-description">' + event.record.fields.lead_text + '</p>'  +
+                '<button data-id="'+ event.record.id+'" class="heart selected">&#10084;</button>' +
             '</div><br>'
             );
             
