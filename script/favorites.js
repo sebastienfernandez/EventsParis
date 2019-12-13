@@ -111,6 +111,38 @@ $('#favorites-selection').on('click', '.event', function() {
         return selected ? '<button data-id="'+ event.record.id +'" class="heart selected">&#10084;</button>' : '<button data-id="'+ event.record.id +'" class="heart unselected">&#10084;</button>'
     }
 
+    // le bouton indique un événement non sélectionné
+
+        $('main').on('click', '.unselected', function() {
+
+            const favs = JSON.parse(localStorage.getItem('favs')) || [];
+
+            favs.push($(this).data('id'));
+
+            localStorage.setItem('favs', JSON.stringify(favs));
+
+            $(this).removeClass('unselected');
+
+            $(this).addClass('selected');
+
+        });
+
+// le bouton indique un événement sélectionné
+
+    $('main').on('click', '.selected', function() {
+
+        const favs = JSON.parse(localStorage.getItem('favs')) || [];
+
+        const newFavs = favs.filter(f => f !== $(this).data("id"));
+
+        localStorage.setItem('favs', JSON.stringify(newFavs));
+
+        $(this).removeClass('selected');
+
+        $(this).addClass('unselected');
+
+    })
+
     // supression de tous les événements
 
     $("#clear-button").on('click',function() {

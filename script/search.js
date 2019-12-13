@@ -121,9 +121,41 @@ $('#results').on('click', '.unselected', function() {
 
 });
 
+// idem, pour l'événement détaillé
+
+$('main').on('click', '.unselected', function() {
+
+    const favs = JSON.parse(localStorage.getItem('favs')) || [];
+
+    favs.push($(this).data('id'));
+
+    localStorage.setItem('favs', JSON.stringify(favs));
+
+    $(this).removeClass('unselected');
+
+    $(this).addClass('selected');
+
+});
+
 // le bouton indique un événement sélectionné
 
 $('#results').on('click', '.selected', function() {
+
+    const favs = JSON.parse(localStorage.getItem('favs')) || [];
+
+    const newFavs = favs.filter(f => f !== $(this).data("id"));
+
+    localStorage.setItem('favs', JSON.stringify(newFavs));
+
+    $(this).removeClass('selected');
+
+    $(this).addClass('unselected');
+
+})
+
+// idem, pour l'événement détaillé
+
+$('main').on('click', '.selected', function() {
 
     const favs = JSON.parse(localStorage.getItem('favs')) || [];
 

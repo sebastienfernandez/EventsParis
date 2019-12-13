@@ -177,6 +177,38 @@ $('#last-event').on('click', '.event', function() {
         
     })
 
+    // le bouton indique un événement non sélectionné
+
+    $('main').on('click', '.unselected', function() {
+
+        const favs = JSON.parse(localStorage.getItem('favs')) || [];
+    
+        favs.push($(this).data('id'));
+    
+        localStorage.setItem('favs', JSON.stringify(favs));
+    
+        $(this).removeClass('unselected');
+    
+        $(this).addClass('selected');
+    
+    });
+
+// le bouton indique un événement sélectionné
+
+    $('main').on('click', '.selected', function() {
+
+        const favs = JSON.parse(localStorage.getItem('favs')) || [];
+
+        const newFavs = favs.filter(f => f !== $(this).data("id"));
+
+        localStorage.setItem('favs', JSON.stringify(newFavs));
+
+        $(this).removeClass('selected');
+
+        $(this).addClass('unselected');
+
+    })
+
     //signalement d'un problème avec le localstorage
 
 } else {
