@@ -65,13 +65,11 @@ $(function() {
 
 $('#results').on('click', '.event', function() {
     let eventId = $(this).data('id');
-    console.log(eventId);
     const favorites = JSON.parse(localStorage.getItem('favs')) || [];
     $.ajax({
         url: 'https://opendata.paris.fr/api/v2/catalog/datasets/que-faire-a-paris-/records/' + eventId,
         dataType: 'jsonp'
     }).done(function(choosen) {
-        console.log(choosen);
         document.querySelector('main').innerHTML = 
          '<div class="choosen-event">'  + 
             '<h1>' + choosen.record.fields.title + '</h1>' +
